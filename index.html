@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Code Display</title>
+    <!-- CSS for the "Atom One Dark" theme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        body { background-color: #0d1117; color: white; padding: 50px; font-family: sans-serif; }
+        .code-container { max-width: 800px; margin: auto; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+
+    <h2>linear and binary serch</h2>
+    <div class="code-container">
+        <pre><code class="language-python">
+
+ 
+
+
+1.	Write a menu driven program to implement linear and binary search to find the location of the first occurrence of an item.
+def linear_search(arr, key):
+    for i in range(len(arr)):
+        if arr[i] == key:
+            return i
+    return -1
+
+def binary_search(arr, key):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == key:
+            return mid  # Store the position
+        elif arr[mid] < key:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+
+def menu():
+    while True:
+        print("\nMenu:")
+        print("1. Linear Search")
+        print("2. Binary Search")
+        print("3. Exit")
+        choice = input("Enter your choice (1/2/3): ")
+        if choice == '3':
+            print("Exiting program.")
+            break
+
+        if choice not in ['1', '2']:
+            print("Invalid choice. Please try again.")
+            continue
+        n = int(input("Enter the number of elements in the Array: "))
+        arr = []
+        for i in range(n):
+            x = int(input(f"Enter element {i + 1}: "))
+            arr.append(x)
+
+        key = int(input("Enter the number to search for: "))
+
+        if choice == '1':
+            index = linear_search(arr, key)
+            if index != -1:
+                print(f"{key} found at index {index} using Linear Search.")
+            else:
+                print(f"{key} not found in the list.")
+
+        elif choice == '2':
+            arr.sort()  # Sort the array for binary search
+            print(f"Sorted list for Binary Search: {arr}")
+            index = binary_search(arr, key)
+            if index != -1:
+                print(f"{key} found at index {index} using Binary Search.")
+            else:
+                print(f"{key} not found in the list.")
+
+menu()
+
+OUTPUT:
+
+Menu:
+1. Linear Search
+2. Binary Search
+3. Exit
+Enter your choice (1/2/3): 1
+Enter the number of elements in the Array: 5
+Enter element 1: 5
+Enter element 2: 1
+Enter element 3: 7
+Enter element 4: 2
+Enter element 5: 9
+Enter the number to search for: 9
+9 found at index 4 using Linear Search.
+
+Menu:
+1. Linear Search
+2. Binary Search
+3. Exit
+Enter your choice (1/2/3): 2
+Enter the number of elements in the Array: 5
+Enter element 1: 5
+Enter element 2: 4
+Enter element 3: 3
+Enter element 4: 2
+Enter element 5: 1
+Enter the number to search for: 1
+Sorted list for Binary Search: [1, 2, 3, 4, 5]
+1 found at index 0 using Binary Search.
+
+2. Write a menu driven program to create a singly linked list and to perform insert and delete operations.
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+    def insert_at_beginning(self, data):
+        newnode = Node(data)
+        newnode.next = self.head
+        self.head = newnode
+    def delete(self, data):
+        if self.head is None:
+            print("The list is empty.")
+            return
+        if self.head.data == data:
+            self.head = self.head.next
+            return
+        temp = self.head
+        while temp.next is not None and temp.next.data != data:
+            temp = temp.next
+        if temp.next is None:
+            print("Element not found.")
+        else:
+            temp.next = temp.next.next
+
+    def display(self):
+        if self.head is None:
+            print("The list is empty.")
+            return
+        temp = self.head
+        while temp is not None:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+        print("None")
+
+def menu():
+    sll = SinglyLinkedList()
+
+    while True:
+        print("\nSingly Linked List Operations:")
+        print("1. Insert at the beginning")
+        print("2. Delete a node")
+        print("3. Display the list")
+        print("4. Exit")
+
+        choice = int(input("Enter your choice: "))
+
+        if choice == 1:
+            data = int(input("Enter data to insert: "))
+            sll.insert_at_beginning(data)
+        elif choice == 2:
+            data = int(input("Enter data to delete: "))
+            sll.delete(data)
+        elif choice == 3:
+            sll.display()
+        elif choice == 4:
+            print("Exiting program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+menu()
+OUTPUT:
+Singly Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 1
+Enter data to insert: 1
+
+Singly Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 1
+Enter data to insert: 2
+
+Singly Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 1
+Enter data to insert: 3
+
+Singly Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 3
+3 -> 2 -> 1 -> None
+
+Singly Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 2
+Enter data to delete: 2
+
+Singly Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 3
+3 -> 1 -> None
+3. Write a menu driven program to perform insert and delete operations in a circular linked list.
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+    def insert_at_beginning(self, data):
+        newnode = Node(data)
+        if self.head is None:
+            self.head = newnode
+            newnode.next = self.head
+        else:
+            newnode.next = self.head
+            temp = self.head
+            while temp.next != self.head:
+                temp = temp.next
+            temp.next = newnode
+            self.head = newnode
+
+    def delete(self, data):
+        if self.head is None:
+            print("The list is empty.")
+            return
+        temp = self.head
+        prev = None
+        # Check if the head node itself holds the data to be deleted
+        if temp.data == data:
+            if temp.next == self.head:  # Only one element in the list
+                self.head = None
+            else:
+                while temp.next != self.head:
+                    temp = temp.next
+                temp.next = self.head.next
+                self.head = self.head.next
+            return
+
+        # Search for the node to be deleted
+        while temp.next != self.head and temp.data != data:
+            prev = temp
+            temp = temp.next
+
+        if temp == self.head:  # If we didn't find the element
+            print("Element not found.")
+        else:
+            prev.next = temp.next
+
+    # Display the list
+    def display(self):
+        if self.head is None:
+            print("The list is empty.")
+            return
+        temp = self.head
+        while True:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+            if temp == self.head:
+                break
+        print()
+
+def menu():
+    cll = CircularLinkedList()
+    while True:
+        print("\nCircular Linked List Operations:")
+        print("1. Insert at the beginning")
+        print("2. Delete a node")
+        print("3. Display the list")
+        print("4. Exit")
+        choice = int(input("Enter your choice: "))
+        if choice == 1:
+            data = int(input("Enter data to insert: "))
+            cll.insert_at_beginning(data)
+        elif choice == 2:
+            data = int(input("Enter data to delete: "))
+            cll.delete(data)
+        elif choice == 3:
+            cll.display()
+        elif choice == 4:
+            print("Exiting program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+menu()
+OUTPUT:
+Circular Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 1
+Enter data to insert: 1
+
+Circular Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 1
+Enter data to insert: 2
+
+Circular Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 1
+Enter data to insert: 3
+
+Circular Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 3
+3 -> 2 -> 1 -> 
+
+Circular Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 2
+Enter data to delete: 2
+
+Circular Linked List Operations:
+1. Insert at the beginning
+2. Delete a node
+3. Display the list
+4. Exit
+Enter your choice: 3
+3 -> 1 ->
+
+4. Write a menu driven program to perform operations on a stack. (linked list implementation)
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+class Stack:
+    def __init__(self):
+        self.top = None
+    def push(self, data):
+        newnode = Node(data)
+        newnode.next = self.top
+        self.top = newnode
+    def pop(self):
+        if self.top is None:
+            print("Stack underflow! The stack is empty.")
+            return None
+        popped_data = self.top.data
+        self.top = self.top.next
+        print(f"{popped_data} popped from the stack.")
+    def peek(self):
+        if self.top is None:
+            print("Stack is empty. Nothing to peek.")
+        else:
+            print("Peeked Element is:" ,self.top.data)
+    def display(self):
+        if self.top is None:
+            print("The stack is empty.")
+            return
+        print("Stack elements are:")
+        temp = self.top
+        while temp is not None:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+        print("None")
+
+def menu():
+    s = Stack()
+    while True:
+        print("\nStack Operations:")
+        print("1. Push")
+        print("2. Pop")
+        print("3. Peek")
+        print("4. Display")
+        print("5. Exit")
+        choice = input("Enter your choice (1-5): ")
+        if choice == "1":
+            data = input("Enter the element to push: ")
+            s.push(data)
+        elif choice == "2":
+            s.pop()
+        elif choice == "3":
+            s.peek()
+        elif choice == "4":
+            s.display()
+        elif choice == "5":
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice! Please try again.")
+menu()
+OUTPUT:
+Stack Operations:
+1. Push
+2. Pop
+3. Peek
+4. Display
+5. Exit
+Enter your choice (1-5): 1
+Enter the element to push: 1
+
+Stack Operations:
+1. Push
+2. Pop
+3. Peek
+4. Display
+5. Exit
+Enter your choice (1-5): 1
+Enter the element to push: 2
+
+Stack Operations:
+1. Push
+2. Pop
+3. Peek
+4. Display
+5. Exit
+Enter your choice (1-5): 1
+Enter the element to push: 3
+
+Stack Operations:
+1. Push
+2. Pop
+3. Peek
+4. Display
+5. Exit
+Enter your choice (1-5): 4
+Stack elements are:
+3 -> 2 -> 1 -> None
+
+Stack Operations:
+1. Push
+2. Pop
+3. Peek
+4. Display
+5. Exit
+Enter your choice (1-5): 2
+3 popped from the stack.
+
+Stack Operations:
+1. Push
+2. Pop
+3. Peek
+4. Display
+5. Exit
+Enter your choice (1-5): 3
+Peeked Element is: 2
+5. Write a program to convert the given infix expression into its postfix form.
+infix = input("Enter an infix expression: ")
+precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3} # Dictionary
+stack = []
+postfix = []
+for char in infix:
+    if char.isalnum():
+        postfix.append(char)
+    elif char == '(':
+        stack.append(char)
+    elif char == ')':
+        while stack and stack[-1] != '(':
+            postfix.append(stack.pop())
+        stack.pop()
+    else:
+         while (stack and stack[-1] != '(' and
+                precedence.get(char, 0) <= precedence.get(stack[-1], 0)):
+            postfix.append(stack.pop())
+         stack.append(char)
+while stack:
+    postfix.append(stack.pop())
+print("Postfix expression:", ''.join(postfix))
+
+OUTPUT:
+Enter an infix expression: (A+B)*(C-D)
+Postfix expression: AB+CD-*
+
+6. Write a menu driven program to perform operations on a circular queue (enqueue, dequeue and peek). (linked list implementation)
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+class CircularQueue:
+    def __init__(self):
+        self.tail = None
+    def enqueue(self, data):
+        newnode = Node(data)
+        if self.tail is None:
+            self.tail = newnode
+            self.tail.next = newnode  # Circular link
+        else:
+            newnode.next = self.tail.next
+            self.tail.next = newnode
+            self.tail = newnode
+
+    def dequeue(self):
+        if self.tail is None:
+            return "Queue is empty."
+        head = self.tail.next
+        if self.tail == head:  # Only one element in the queue
+            self.tail = None
+        else:
+            self.tail.next = head.next
+        return head.data
+    def peek(self):
+        if self.tail is None:
+            return "Queue is empty."
+        return self.tail.next.data
+    def display(self):
+        if self.tail is None:
+            return "Queue is empty."
+        result = []
+        current = self.tail.next
+        while True:
+            result.append(current.data)
+            if current == self.tail:
+                break
+            current = current.next
+        return " -> ".join(map(str, result))
+
+def menu():
+    queue = CircularQueue()
+    while True:
+        print("\nMenu:")
+        print("1. Enqueue")
+        print("2. Dequeue")
+        print("3. Peek")
+        print("4. Display")
+        print("5. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            element = input("Enter the element to enqueue: ")
+            queue.enqueue(element)
+            print(f"Enqueued: {element}")
+        elif choice == "2":
+            result = queue.dequeue()
+            print(f"Dequeued: {result}")
+        elif choice == "3":
+            result = queue.peek()
+            print(f"Front element: {result}")
+        elif choice == "4":
+            print("Queue: ", queue.display())
+        elif choice == "5":
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+menu()
+OUTPUT:
+Menu:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 1
+Enter the element to enqueue: 10
+Enqueued: 10
+
+Menu:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 1
+Enter the element to enqueue: 20
+Enqueued: 20
+
+Menu:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 1
+Enter the element to enqueue: 30
+Enqueued: 30
+
+Menu:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 4
+Queue:  10 -> 20 -> 30
+
+Menu:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 2
+Dequeued: 10
+
+Menu:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 3
+Front element: 20
+
+Menu:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 4
+Queue:  20 -> 30
+
+7. Write a program to sort the array in ascending order using a) Quick sort b) 
+Merge sort.
+def partition(array, low, high):
+    pivot = array[low]
+    i = low + 1
+    j = high
+    while i <= j:
+        while i <= high and array[i] <= pivot:
+            i += 1
+        while array[j] > pivot:
+            j -= 1
+        if i < j:
+            array[i], array[j] = array[j], array[i]
+    array[low], array[j] = array[j], array[low]
+    return j
+
+def quicksort(array, low, high):
+    if low < high:
+        pivot = partition(array, low, high)
+        quicksort(array, low, pivot - 1)
+        quicksort(array, pivot + 1, high)
+
+
+def mergesort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = mergesort(arr[:mid])
+    right = mergesort(arr[mid:])
+    return merge(left, right)
+
+def merge(left, right):
+    sorted_arr = []
+    while left and right:
+        if left[0] < right[0]:
+            sorted_arr.append(left.pop(0))
+        else:
+            sorted_arr.append(right.pop(0))
+    sorted_arr.extend(left)
+    sorted_arr.extend(right)
+    return sorted_arr
+
+def menu():
+    while True:
+        print("\nMenu:")
+        print("1. Quick Sort")
+        print("2. Merge Sort")
+        print("3. Exit")
+        choice = input("Enter your choice: ")
+        if choice == '3':
+            print("Exiting the program.")
+            break
+        if choice in ['1', '2']:
+            n = int(input("Enter the number of elements in the arr: "))
+            arr = []
+            for i in range(n):
+                x = int(input(f"Enter element {i + 1}: "))
+                arr.append(x)
+            if choice == '1':
+                print("Sorted arr using Quick Sort:", quicksort(arr,0,n-1))
+                print('Sorted arr using Quick Sort:')
+                print(arr)
+            elif choice == '2':
+                print("Sorted arr using Merge Sort:", mergesort(arr))
+        else:
+            print("Invalid choice! Please try again.")
+menu()
+OUTPUT:
+Menu:
+1. Quick Sort
+2. Merge Sort
+3. Exit
+Enter your choice: 1
+Enter the number of elements in the arr: 5
+Enter element 1: 5
+Enter element 2: 4
+Enter element 3: 3
+Enter element 4: 2
+Enter element 5: 1
+Sorted arr using Quick Sort: None
+Sorted arr using Quick Sort:
+[1, 2, 3, 4, 5]
+
+Menu:
+1. Quick Sort
+2. Merge Sort
+3. Exit
+Enter your choice: 2
+Enter the number of elements in the arr: 5
+Enter element 1: 5
+Enter element 2: 4
+Enter element 3: 3
+Enter element 4: 2
+Enter element 5: 1
+Sorted arr using Merge Sort: [1, 2, 3, 4, 5]
+8. Write a program to find tree traversals of a binary tree. 
+class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.value = key
+def preorder(root):
+    if root:
+        print(root.value, end=" ")
+        preorder(root.left)
+        preorder(root.right)
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.value, end=" ")
+        inorder(root.right)
+def postorder(root):
+    if root:
+        postorder(root.left)
+        postorder(root.right)
+        print(root.value, end=" ")
+def mainfunction():
+    root = Node(1)
+    root.left = Node(2)
+    root.right = Node(3)
+    root.left.left = Node(4)
+    root.left.right = Node(5)
+    root.right.left = Node(6)
+    root.right.right = Node(7)
+
+    print("Pre-order Traversal:")
+    preorder(root)
+    print("\nIn-order Traversal:")
+    inorder(root)
+    print("\nPost-order Traversal:")
+    postorder(root)
+
+mainfunction()
+OUTPUT:
+Pre-order Traversal:
+1 2 4 5 3 6 7 
+In-order Traversal:
+4 2 5 1 6 3 7 
+Post-order Traversal:
+4 5 2 6 7 3 1
+9. Write a program to find Minimum cost spanning tree of a given undirected graph using 
+Prim’s algorithm. 
+import sys
+def prim(graph, n):
+    selected = [False] * n
+    selected[0] = True
+    edges = []
+    for _ in range(n - 1):
+        min_weight = sys.maxsize
+        u, v = -1, -1
+        for i in range(n):
+            if selected[i]:
+                for j in range(n):
+                    if not selected[j] and graph[i][j] > 0 and graph[i][j] < min_weight:
+                        min_weight = graph[i][j]
+                        u, v = i, j
+        selected[v] = True
+        edges.append((u, v, min_weight))
+    print("Minimum Spanning Tree:")
+    for u, v, weight in edges:
+        print(f"{u} - {v} : {weight}")
+graph = [
+    [0, 2, 0, 6, 0],
+    [2, 0, 3, 8, 5],
+    [0, 3, 0, 0, 7],
+    [6, 8, 0, 0, 9],
+    [0, 5, 7, 9, 0]
+]
+n = len(graph)
+prim(graph, n)
+OUTPUT:
+Minimum Spanning Tree:
+0 - 1 : 2
+1 - 2 : 3
+1 - 4 : 5
+0 - 3 : 6
+10. Write a program to find Minimum cost spanning tree of a given undirected graph using 
+Kruskal’s algorithm. 
+
+def find(parent, i):
+    if parent[i] != i:
+        parent[i] = find(parent, parent[i])  
+    return parent[i]
+
+def union(parent, u, v):
+    root_u = find(parent, u)
+    root_v = find(parent, v)
+    parent[root_u] = root_v  
+
+def kruskal(n, graph):
+    edges = []
+    for i in range(n):
+        for j in range(i + 1, n):  
+            if graph[i][j] != 0:  
+                edges.append((graph[i][j], i, j))  
+
+    edges.sort()
+
+    parent = [i for i in range(n)]  
+    mst = []  
+    min_cost = 0
+
+    for weight, u, v in edges:
+        if find(parent, u) != find(parent, v):  
+            union(parent, u, v)  
+            mst.append((u, v, weight))
+            min_cost += weight
+
+        if len(mst) == n - 1:  
+            break
+
+    print("Edges in the constructed MST:")
+    for u, v, weight in mst:
+        print(f"{u} -- {v} == {weight}")
+    print(f"Minimum Spanning Tree Cost: {min_cost}")
+
+
+graph = [
+    [0, 10, 6, 5],
+    [10, 0, 0, 15],
+    [6, 0, 0, 4],
+    [5, 15, 4, 0]
+]
+
+n = len(graph)   
+kruskal(n, graph)  
+OUTPUT:
+Edges in the constructed MST:
+2 -- 3 == 4
+0 -- 3 == 5
+0 -- 1 == 10
+Minimum Spanning Tree Cost: 19
+11. From a given vertex in a weighted connected graph, find shortest paths to other vertices using Dijkstra's algorithm.
+def dijkstra(graph, src, n):
+    inf = 99999
+    dist = [inf] * n
+    dist[src] = 0
+    visited = [False] * n
+    for _ in range(n):
+        u = -1
+        for v in range(n):
+            if not visited[v] and (u == -1 or dist[v] < dist[u]):
+                u = v
+        visited[u] = True
+        for v in range(n):
+            if not visited[v] and graph[u][v] > 0 and dist[u] + graph[u][v] < dist[v]:
+                dist[v] = dist[u] + graph[u][v]
+    return dist
+
+graph = [
+    [0, 4, 1, 0],
+    [4, 0, 2, 5],
+    [1, 2, 0, 8],
+    [0, 5, 8, 0]
+]
+n=len(graph)
+src = 0
+dist = dijkstra(graph, src,n)
+
+print("Shortest distances from source vertex", src)
+for i in range(n):
+    print("Vertex", i, ":", dist[i])
+OUTPUT:
+Shortest distances from source vertex 0
+Vertex 0 : 0
+Vertex 1 : 3
+Vertex 2 : 1
+Vertex 3 : 8
+12. Implement N Queen's problem using Backtracking and prove its efficiency. 
+
+13. Find a subset of a given set S = {s1,s2,. ... ,sn} of n positive integers whose sum is equal to a given positive integer d. A suitable message is to be displayed if the given problem instance doesn't have a solution and prove its efficiency.
+
+14. Implement 0/1 Knapsack problem using Dynamic Programming.
+def knapSack(W, wt, pft, n):
+    if n == 0 or W == 0:
+        return 0
+    if (wt[n-1] > W):
+        return knapSack(W, wt, pft, n-1)
+    else:
+        return max(pft[n-1] + knapSack(W-wt[n-1], wt, pft, n-1),
+                   knapSack(W, wt, pft, n-1))
+if __name__ == '__main__':
+    profit = [60, 100, 120]
+    weight = [10, 20, 30]
+    W = 50
+    n = len(profit)
+    max_profit=knapSack(W, weight, profit, n)
+    print("The maximum profit is: ",max_profit)
+
+
+
+        </code></pre>
+    </div>
+
+    <!-- The Script that does the highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
